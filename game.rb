@@ -42,6 +42,17 @@ class Hangman
         #we use chomp to remove the line break
         guess = gets.chomp
 
+        #a conditional that checks if a letter from the guess is part of the word if it's included do something
+        #we use include method to return a boolean if it's true of false
+        good_guess = @word.first.include? guess
+
+        if good_guess
+            puts "Good guess!"
+        else
+            puts "Sorry... try again"
+        end
+
+
     end
     #create a class for user to start a game by typing a letter and also receive a clue for the word they are quessing
     def begin

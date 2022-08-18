@@ -20,10 +20,8 @@ class Hangman
             ["bookworm", "a person who enjoys reading"]
         ]
     end
-    #create a class for user to start a game by typing a letter and also receive a clue for the word they are quessing
-    def begin
-        #get number of characters in the new word
-        puts "New game started ... your word is #{ @word.first.size } characters long"
+
+    def print_teaser
         word_teaser = ""
 
         #https://www.rubyguides.com/ruby-tutorial/loops/#tab-con-9
@@ -33,8 +31,10 @@ class Hangman
             word_teaser += "_ "
         end
         puts word_teaser
-        puts "The clue is: #{ @word.last }"
-        #give the user a prompt for inputting a letter
+    
+    end
+
+    def make_guess
         puts "Enter a letter"
         #we use a chomp method to return a new String with a separator removed from the end of the string e.g \n,\r (https://www.geeksforgeeks.org/ruby-string-chomp-method/#:~:text=chomp!%20is%20a%20String%20class,default%20Ruby%20record%20separator%2C%20t.)
         #create a new variable to capture input from user and get command to take value from our terminal
@@ -42,7 +42,19 @@ class Hangman
         #we use chomp to remove the line break
         guess = gets.chomp
 
-        puts "You guessed #{guess}"
+    end
+    #create a class for user to start a game by typing a letter and also receive a clue for the word they are quessing
+    def begin
+        #get number of characters in the new word
+        puts "New game started ... your word is #{ @word.first.size } characters long"
+        #calling the teaser method 
+        print_teaser
+
+        puts "The clue is: #{ @word.last }"
+        #give the user a prompt for inputting a letter
+
+        #calling make guess method
+        make_guess
     end
 
 end

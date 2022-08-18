@@ -1,15 +1,15 @@
 #create a class called hangman
 
-Class Hangman
+class Hangman
 #create an initialize method
     def  initialize
         #to be able to access the wor , we change them to instance variables
         #create an array of letters
-        letters = ('a'..'z').to_a
+        @letters = ('a'..'z').to_a
         #sample() is an array method which returns a random element or n random elements from an array
         #to ensure we remove the letter a user inputs whether its correct or not, to allow user to know which characters they can use
-        #to ensure the words are randomly picked
-        word = words.sample
+        #to ensure the words are randomly picked (https://www.geeksforgeeks.org/ruby-array-sample-function/)
+        @word = words.sample
     end
     #Creating an array that allows us to pick a word
     def words
@@ -22,7 +22,31 @@ Class Hangman
     end
     #create a class for user to start a game by typing a letter and also receive a clue for the word they are quessing
     def begin
-        puts "New game started ... your clue is #{ }"
+        #get number of characters in the new word
+        puts "New game started ... your word is #{ @word.first.size } characters long"
+        word_teaser = ""
+
+        #https://www.rubyguides.com/ruby-tutorial/loops/#tab-con-9
+        # we use size to get number of characters in the string and times to run the script as many of those times
+
+        @word.first.size.times do
+            word_teaser += "_ "
+        end
+        puts word_teaser
+        puts "The clue is: #{ @word.last }"
+        #give the user a prompt for inputting a letter
+        puts "Enter a letter"
+        #we use a chomp method to return a new String with a separator removed from the end of the string e.g \n,\r (https://www.geeksforgeeks.org/ruby-string-chomp-method/#:~:text=chomp!%20is%20a%20String%20class,default%20Ruby%20record%20separator%2C%20t.)
+        #create a new variable to capture input from user and get command to take value from our terminal
+        #https://www.rubyguides.com/2019/10/ruby-chomp-gets/
+        #we use chomp to remove the line break
+        guess = gets.chomp
+
+        puts "You guessed #{guess}"
     end
 
 end
+
+game = Hangman.new
+game.begin
+

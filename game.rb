@@ -10,6 +10,8 @@ class Hangman
         #to ensure we remove the letter a user inputs whether its correct or not, to allow user to know which characters they can use
         #to ensure the words are randomly picked (https://www.geeksforgeeks.org/ruby-array-sample-function/)
         @word = words.sample
+        #to allow a limited number of guesses
+        @lives = 7
     end
     #Creating an array that allows us to pick a word
     def words
@@ -35,22 +37,35 @@ class Hangman
     end
 
     def make_guess
-        puts "Enter a letter"
-        #we use a chomp method to return a new String with a separator removed from the end of the string e.g \n,\r (https://www.geeksforgeeks.org/ruby-string-chomp-method/#:~:text=chomp!%20is%20a%20String%20class,default%20Ruby%20record%20separator%2C%20t.)
-        #create a new variable to capture input from user and get command to take value from our terminal
-        #https://www.rubyguides.com/2019/10/ruby-chomp-gets/
-        #we use chomp to remove the line break
-        guess = gets.chomp
+        if lives > 0
+            puts "Enter a letter"
+            #we use a chomp method to return a new String with a separator removed from the end of the string e.g \n,\r (https://www.geeksforgeeks.org/ruby-string-chomp-method/#:~:text=chomp!%20is%20a%20String%20class,default%20Ruby%20record%20separator%2C%20t.)
+            #create a new variable to capture input from user and get command to take value from our terminal
+            #https://www.rubyguides.com/2019/10/ruby-chomp-gets/
+            #we use chomp to remove the line break
+            guess = gets.chomp
 
-        #a conditional that checks if a letter from the guess is part of the word if it's included do something
-        #we use include method to return a boolean if it's true of false
-        good_guess = @word.first.include? guess
+            #a conditional that checks if a letter from the guess is part of the word if it's included do something
+            #we use include method to return a boolean if it's true of false
+            good_guess = @word.first.include? guess
 
-        if good_guess
-            puts "Good guess!"
+            if good_guess
+                puts "Good guess!..you are correct"
+
+                #showing new letter added to the word
+                print_teaser
+                make_guess
+            else
+                #reduce number of lives if gues is wrong
+                @lives -= 1
+                puts "Sorry... you have #{ @lives } lives left. try again"
+                #allow user to make another guess until lives = 0
+                make_guess
+            end
         else
-            puts "Sorry... try again"
+            puts "Game over! Better luck next time"
         end
+
 
 
     end
